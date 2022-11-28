@@ -13,11 +13,12 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { useState } from "react";
-import Axios from "axios"
+import Axios from "axios";
 import "./Home.css";
 
+
 const FormPage: React.FC = () => {
-  const url = "http://localhost:3000/post"
+  const url = "http://localhost:3000/post";
   const [data, setData] = useState({
     url: "",
     title: "",
@@ -36,13 +37,13 @@ const FormPage: React.FC = () => {
     console.log(data);
     e.preventDefault();
     Axios.post(url, {
-      url:data.url,
-      title:data.title,
-      description:data.description,
-      tags:data.tags
-    }).then(res=>{
-      console.log(res.data)
-    })
+      url: data.url,
+      title: data.title,
+      description: data.description,
+      tags: data.tags,
+    }).then((res) => {
+      console.log(res.data);
+    });
   };
 
   return (
@@ -98,7 +99,7 @@ const FormPage: React.FC = () => {
                 type="text"
               ></IonInput>
             </IonItem>
-            <IonButton type="submit">submit</IonButton>
+            <IonButton type="submit" >Upload</IonButton>
           </IonList>
         </form>
       </IonContent>
