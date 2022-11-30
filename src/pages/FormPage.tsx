@@ -18,7 +18,7 @@ import "./Home.css";
 
 
 const FormPage: React.FC = () => {
-  const url = "http://localhost:3000/post";
+  const url = "https://lazy-tan-penguin-hose.cyclic.app/post";
   const [data, setData] = useState({
     url: "",
     title: "",
