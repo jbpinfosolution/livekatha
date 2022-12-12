@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "906538815958",
+    "project_id": "live-katha-1dc79",
+    "storage_bucket": "live-katha-1dc79.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906538815958:android:9cc5c03b0b609573215477",
+        "android_client_info": {
+          "package_name": "io.ionic.livekatha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "906538815958-ig1gp81080ahnog0e5d4vg0hbkfb1vuv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARdxTeLjVoyQAqVlxEsEKL_vXpEaP2XMM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "906538815958-ig1gp81080ahnog0e5d4vg0hbkfb1vuv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,7 +1,6 @@
 import {
-  IonBackButton,
+  IonAlert,
   IonButton,
-  IonButtons,
   IonContent,
   IonHeader,
   IonInput,
@@ -9,6 +8,7 @@ import {
   IonLabel,
   IonList,
   IonPage,
+  IonTextarea,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -16,8 +16,8 @@ import { useState } from "react";
 import Axios from "axios";
 import "./Home.css";
 
-
 const FormPage: React.FC = () => {
+  const [showAlert, setShowAlert] = useState(false);
   const url = "https://lazy-tan-penguin-hose.cyclic.app/post";
   const [data, setData] = useState({
     url: "",
@@ -42,21 +42,30 @@ const FormPage: React.FC = () => {
       description: data.description,
       tags: data.tags,
     }).then((res) => {
+      setShowAlert(true)
       console.log(res.data);
     });
+    // data.url="";
+    // data.title="";
+    // data.description="";
+    // data.tags=""; 
   };
-
+  
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar color="medium" className="ion-text-center">
-          <IonButtons slot="start">
-            <IonBackButton defaultHref="/home"></IonBackButton>
-          </IonButtons>
           <IonTitle>Upload</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
+      <IonAlert
+        isOpen={showAlert}
+        onDidDismiss={() => setShowAlert(false)}
+        header="Message"
+        message="Video uploaded successfully."
+        buttons={['OK']}
+      />
         <form onSubmit={submit}>
           <IonList>
             <IonItem>
@@ -75,19 +84,18 @@ const FormPage: React.FC = () => {
                 id="title"
                 value={data.title}
                 onIonChange={inputEvent}
-                placeholder="Enter Your Url"
+                placeholder="Enter Your Title"
                 type="text"
               ></IonInput>
             </IonItem>
             <IonItem>
               <IonLabel position="floating">Description</IonLabel>
-              <IonInput
+              <IonTextarea
                 id="description"
                 value={data.description}
                 onIonChange={inputEvent}
-                placeholder="Enter Your Url"
-                type="text"
-              ></IonInput>
+                placeholder="Enter Your Description"
+              ></IonTextarea>
             </IonItem>
             <IonItem>
               <IonLabel position="floating">Tags</IonLabel>
@@ -95,11 +103,11 @@ const FormPage: React.FC = () => {
                 id="tags"
                 value={data.tags}
                 onIonChange={inputEvent}
-                placeholder="Enter Your Url"
+                placeholder="Enter Your Tags"
                 type="text"
               ></IonInput>
             </IonItem>
-            <IonButton type="submit" >Upload</IonButton>
+            <IonButton type="submit"  >Upload</IonButton>
           </IonList>
         </form>
       </IonContent>
