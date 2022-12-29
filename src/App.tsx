@@ -24,10 +24,12 @@ import "./theme/variables.css";
 import FormPage from "./pages/FormPage";
 import { useEffect } from "react";
 import { AdMob } from '@capacitor-community/admob';
+import VideoPage from "./pages/videoPage";
 
 setupIonicReact();
 
-const App: React.FC = () =>{ 
+const App: React.FC = () =>
+{ 
   useEffect(() => {
     AdMob.initialize({
       requestTrackingAuthorization: true,
@@ -40,7 +42,8 @@ const App: React.FC = () =>{
         <Route exact path="/home">
           <HomePage />
         </Route>
-        <Route exact path="/form" component={() => <FormPage/>} />
+        <Route exact path="/home/video" component={VideoPage} ></Route>
+        <Route exact path="/form" component={FormPage} />
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
