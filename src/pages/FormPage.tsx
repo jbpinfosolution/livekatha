@@ -29,12 +29,9 @@ const FormPage: React.FC = () => {
   const inputEvent = (e: any) => {
     const { value, id } = e.target;
     setData({ ...data, [id]: value });
-    // console.log(e.target.value);
-    // console.log(e.target.id);
   };
 
   const submit = (e: any) => {
-    console.log(data);
     e.preventDefault();
     Axios.post(url, {
       url: data.url,
@@ -43,12 +40,7 @@ const FormPage: React.FC = () => {
       tags: data.tags,
     }).then((res) => {
       setShowAlert(true)
-      console.log(res.data);
-    });
-    // data.url="";
-    // data.title="";
-    // data.description="";
-    // data.tags=""; 
+    }); 
   };
   
   return (

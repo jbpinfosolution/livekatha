@@ -1,16 +1,13 @@
 import {
   IonButton,
   IonButtons,
-  IonCol,
   IonContent,
   IonFooter,
-  IonGrid,
   IonHeader,
   IonIcon,
   IonImg,
   IonModal,
   IonPage,
-  IonRow,
   IonText,
   IonTitle,
   IonToolbar,
@@ -29,21 +26,42 @@ import "./Home.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { informationCircleOutline } from "ionicons/icons";
+import { useIonRouter } from "@ionic/react";
+import { App } from "@capacitor/app";
 
 const styles = {
   img1: {
     height: "30px",
     width: "30px",
-    marginLeft: "55px",
+    display: "inline-block",
+    position: "absolute",
+    left: "90px",
   },
   img2: {
     height: "30px",
     width: "30px",
+    right: " 90px",
+    display: "inline-block",
+    position: "absolute",
+  },
+  title: {
+    marginTop: "6px",
+    textAlign: "center",
   },
 };
 
 const HomePage: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const ionRouter = useIonRouter();
+
+  document.addEventListener("ionBackButton", (ev: any) => {
+    ev.detail.register(-1, () => {
+      if (!ionRouter.canGoBack()) {
+        App.exitApp();
+      }
+    });
+  });
+
 
   const showBanner = async () => {
     AdMob.addListener(BannerAdPluginEvents.Loaded, () => {});
@@ -57,70 +75,63 @@ const HomePage: React.FC = () => {
     // demo ad unit id ca-app-pub-3940256099942544/6300978111
 
     const options: BannerAdOptions = {
-      adId: "ca-app-pub-7720753730393552/1815817037",
+      adId: "ca-app-pub-3940256099942544/6300978111",
       adSize: BannerAdSize.MEDIUM_RECTANGLE,
       position: BannerAdPosition.BOTTOM_CENTER,
       margin: 0,
-      // isTesting: true,
+      isTesting: true,
     };
     await AdMob.showBanner(options);
   };
 
   showBanner();
 
-  const hideBanner =async () => {
-    await AdMob.removeBanner()
-  }
+  // const hideBanner = async () => {
+  //   await AdMob.removeBanner();
+  // };
 
-  const hide =async () => {
-await AdMob.hideBanner()
-  }
+  const hide = async () => {
+    await AdMob.hideBanner();
+  };
 
-  const popUp =() => {
+  const popUp = () => {
     setIsOpen(true);
     hide();
-  }
-
+  };
 
   return (
     <>
       <IonPage>
         <IonHeader>
-          <IonToolbar color="light" className="ion-text-center">
-            <IonGrid>
-              <IonRow>
-                <IonCol>
-                  <IonImg src="./images/om.png" style={styles.img1} />
-                </IonCol>
-                <IonCol>
-                  <IonTitle style={{ marginTop: "10px" }}>
-                    <b>Livekatha</b>
-                  </IonTitle>
-                </IonCol>
-                <IonCol>
-                  <IonImg src="./images/om.png" style={styles.img2} />
-                </IonCol>
-              </IonRow>
-            </IonGrid>
+          <IonToolbar color="light">
+            <div style={{ display: "flex" }}>
+              <IonImg src="./images/om.png" style={styles.img1} />
+              <IonTitle style={styles.title}>
+                <b>Livekatha</b>
+              </IonTitle>
+              <IonImg src="./images/om.png" style={styles.img2} />
+            </div>
           </IonToolbar>
         </IonHeader>
         <IonContent fullscreen>
-          <h1 style={{ marginTop: "200px", marginLeft: "130px" }}>
+          <h1 style={{ marginTop: "200px", textAlign: "center" }}>
             <b>WELCOME</b>
           </h1>
-          <h4 style={{ marginLeft: "15px" }}>
+          <h4 style={{ textAlign: "center" }}>
             Watch all live katha just one click!!
           </h4>
           <Link to={"/home/video"}>
-            <IonButton
-              color="primary"
-              style={{ marginLeft: "130px" }}
-              onClick={() => {
-               hideBanner()
-              }}
-            >
-              watch now
-            </IonButton>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <IonButton
+                color="primary"
+                style={{ margin: 0 }}
+                // onClick={() => {
+                //   hideBanner();
+                // }}
+              >
+                watch now
+              </IonButton>
+            </div>
           </Link>
           <IonModal isOpen={isOpen}>
             <IonHeader>
@@ -133,50 +144,53 @@ await AdMob.hideBanner()
             </IonHeader>
             <IonContent className="ion-padding">
               <IonText>
-                
-              <p>
-                <b>Livekatha App</b>
-              </p>
-              <p>
-                Livekatha , a part of the video, a video chapter, and a
-                song/track of a album video
-              </p>
+                <p>
+                  <b>Livekatha App</b>
+                </p>
+                <p>
+                  Livekatha , a part of the video, a video chapter, and a
+                  song/track of a album video
+                </p>
 
-              <p>
-                <b>Term of Services</b>
-              </p>
-              <p>
-                The App is a YouTube iframe Client, uses YouTube iframe
-                Services, and it plays YouTube Videos only. By using the App,
-                you are agreeing to be bound by the YouTube Terms of Service (
-                <a data-fr-linked="true" href="https://www.youtube.com/t/terms">
-                  https://www.youtube.com/t/terms
-                </a>
-                ), and Google Privacy Policy at{" "}
-                <a
-                  data-fr-linked="true"
-                  href="http://www.google.com/policies/privacy"
-                >
-                  http://www.google.com/policies/privacy
-                </a>
-                ,
-              </p>
+                <p>
+                  <b>Term of Services</b>
+                </p>
+                <p>
+                  The App is a YouTube iframe Client, uses YouTube iframe
+                  Services, and it plays YouTube Videos only. By using the App,
+                  you are agreeing to be bound by the YouTube Terms of Service (
+                  <a
+                    data-fr-linked="true"
+                    href="https://www.youtube.com/t/terms"
+                  >
+                    https://www.youtube.com/t/terms
+                  </a>
+                  ), and Google Privacy Policy at{" "}
+                  <a
+                    data-fr-linked="true"
+                    href="http://www.google.com/policies/privacy"
+                  >
+                    http://www.google.com/policies/privacy
+                  </a>
+                  ,
+                </p>
 
-              <p>
-                YouTube and the YouTube logo, trademark, and trade dress are
-                registered trademarks owned by Google Inc.
-              </p>
-              <p>
-                <b>Privacy Policy</b>
-              </p>
-              <p>We don&apos;t collect any kind of personal information.</p>
-              <p><br /></p>
-              <p>
-                <b>Disclaimer for JbpInfo</b>
-              </p>
+                <p>
+                  YouTube and the YouTube logo, trademark, and trade dress are
+                  registered trademarks owned by Google Inc.
+                </p>
+                <p>
+                  <b>Privacy Policy</b>
+                </p>
+                <p>We don&apos;t collect any kind of personal information.</p>
+                <p>
+                  <br />
+                </p>
+                <p>
+                  <b>Disclaimer for JbpInfo</b>
+                </p>
 
-
-              <p>
+                <p>
                   If you require any more information or have any questions
                   about our site's disclaimer, please feel free to contact us by
                   email at mailto:jbpinfosolution@gmail.com. Our Disclaimer was
@@ -206,7 +220,7 @@ await AdMob.hideBanner()
                   disclaimer and agree to its terms. Update Should we update,
                   amend or make any changes to this document, those changes will
                   be prominently posted here.
-                  </p>
+                </p>
               </IonText>
             </IonContent>
           </IonModal>
@@ -224,7 +238,11 @@ await AdMob.hideBanner()
                 style={{ marginBottom: "10px" }}
               ></IonIcon>
             </IonButton>
-            <IonText>Disclaimer and Privacy Policy</IonText>
+            <IonText
+              style={{ left: "38px", position: "absolute", top: "12px" }}
+            >
+              Disclaimer and Privacy Policy
+            </IonText>
           </IonToolbar>
         </IonFooter>
       </IonPage>
