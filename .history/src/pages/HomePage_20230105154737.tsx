@@ -30,11 +30,23 @@ import { useIonRouter } from "@ionic/react";
 import { App } from "@capacitor/app";
 
 const styles = {
-  logo: {
-    width: "60%",
-    justifyContent: "center",
-    display: "flex",
-    marginLeft: "76px",
+  img1: {
+    height: "30px",
+    width: "30px",
+    display: "inline-block",
+    position: "absolute",
+    left: "90px",
+  },
+  img2: {
+    height: "30px",
+    width: "30px",
+    right: " 90px",
+    display: "inline-block",
+    position: "absolute",
+  },
+  title: {
+    marginTop: "6px",
+    textAlign: "center",
   },
 };
 
@@ -50,6 +62,7 @@ const HomePage: React.FC = () => {
     });
   });
 
+
   const showBanner = async () => {
     AdMob.addListener(BannerAdPluginEvents.Loaded, () => {});
 
@@ -62,16 +75,20 @@ const HomePage: React.FC = () => {
     // demo ad unit id ca-app-pub-3940256099942544/6300978111
 
     const options: BannerAdOptions = {
-      adId: "ca-app-pub-3940256099942544/6300978111",
+      adId: "ca-app-pub-7720753730393552/1815817037",
       adSize: BannerAdSize.MEDIUM_RECTANGLE,
       position: BannerAdPosition.BOTTOM_CENTER,
       margin: 0,
-      isTesting: true,
+      // isTesting: true,
     };
     await AdMob.showBanner(options);
   };
 
   showBanner();
+
+  // const hideBanner = async () => {
+  //   await AdMob.removeBanner();
+  // };
 
   const hide = async () => {
     await AdMob.hideBanner();
@@ -86,15 +103,18 @@ const HomePage: React.FC = () => {
     <>
       <IonPage>
         <IonHeader>
-          <IonToolbar>
-            <IonImg
-              src="./images/om livekatha.jpg"
-              style={styles.logo}
-            ></IonImg>
+          <IonToolbar color="light">
+            <div style={{ display: "flex" }}>
+              <IonImg src="./images/om.png" style={styles.img1} />
+              <IonTitle style={styles.title}>
+                <b>Livekatha</b>
+              </IonTitle>
+              <IonImg src="./images/om.png" style={styles.img2} />
+            </div>
           </IonToolbar>
         </IonHeader>
         <IonContent fullscreen>
-          <h1 style={{ marginTop: "100px", textAlign: "center" }}>
+          <h1 style={{ marginTop: "200px", textAlign: "center" }}>
             <b>WELCOME</b>
           </h1>
           <h4 style={{ textAlign: "center" }}>
@@ -102,7 +122,13 @@ const HomePage: React.FC = () => {
           </h4>
           <Link to={"/home/video"}>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <IonButton color="primary" style={{ margin: 0 }}>
+              <IonButton
+                color="primary"
+                style={{ margin: 0 }}
+                // onClick={() => {
+                //   hideBanner();
+                // }}
+              >
                 watch now
               </IonButton>
             </div>
@@ -225,4 +251,3 @@ const HomePage: React.FC = () => {
 };
 
 export default HomePage;
-

@@ -30,12 +30,12 @@ import { useIonRouter } from "@ionic/react";
 import { App } from "@capacitor/app";
 
 const styles = {
-  logo: {
+  logo:{
     width: "60%",
     justifyContent: "center",
     display: "flex",
     marginLeft: "76px",
-  },
+  }
 };
 
 const HomePage: React.FC = () => {
@@ -50,6 +50,7 @@ const HomePage: React.FC = () => {
     });
   });
 
+
   const showBanner = async () => {
     AdMob.addListener(BannerAdPluginEvents.Loaded, () => {});
 
@@ -62,11 +63,11 @@ const HomePage: React.FC = () => {
     // demo ad unit id ca-app-pub-3940256099942544/6300978111
 
     const options: BannerAdOptions = {
-      adId: "ca-app-pub-3940256099942544/6300978111",
+      adId: "ca-app-pub-7720753730393552/1815817037",
       adSize: BannerAdSize.MEDIUM_RECTANGLE,
       position: BannerAdPosition.BOTTOM_CENTER,
       margin: 0,
-      isTesting: true,
+      // isTesting: true, 
     };
     await AdMob.showBanner(options);
   };
@@ -86,8 +87,8 @@ const HomePage: React.FC = () => {
     <>
       <IonPage>
         <IonHeader>
-          <IonToolbar>
-            <IonImg
+          <IonToolbar >
+           <IonImg
               src="./images/om livekatha.jpg"
               style={styles.logo}
             ></IonImg>
@@ -102,7 +103,10 @@ const HomePage: React.FC = () => {
           </h4>
           <Link to={"/home/video"}>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <IonButton color="primary" style={{ margin: 0 }}>
+              <IonButton
+                color="primary"
+                style={{ margin: 0 }}
+              >
                 watch now
               </IonButton>
             </div>
@@ -225,4 +229,3 @@ const HomePage: React.FC = () => {
 };
 
 export default HomePage;
-

@@ -1,21 +1,48 @@
-/* ion-button {
-    --background: #93e9be;
-    --background-hover: #29d9df;
-    --background-activated: #88f4be;
-    --background-focused: #88f4be;
+ion-grid {
+  margin-left: 10px;
+  margin-right: 10px;
+  --ion-grid-padding: 0px;
+
+  --ion-grid-padding-xs: 0px;
+  --ion-grid-padding-sm: 0px;
+  --ion-grid-padding-md: 0px;
+  --ion-grid-padding-lg: 0px;
+  --ion-grid-padding-xl: 0px;
+
+  --ion-grid-column-padding:10px;
+
+  --ion-grid-column-padding-xs: 10px;
+  --ion-grid-column-padding-sm: 10px;
+  --ion-grid-column-padding-md: 10px;
+  --ion-grid-column-padding-lg: 10px;
+  --ion-grid-column-padding-xl: 10px;
+}
+
+ion-col {
+  background-color:white;
+  border: solid 1px;
+  color:black;
+  /* text-align: center; */
   
-    --color: blue;
-    --padding-left: "50px";
+}
+.pageContainer{
   
-    --border-radius: 0;
-    --border-color: #000;
-    --border-style: solid;
-    --border-width: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.h1{
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.pageContainer2{
   
-    --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
-  
-    --ripple-color: deeppink;
-  
-    --padding-top: 10px;
-    --padding-bottom: 10px;
-  } */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.h{
+  text-align: center;
+}
+

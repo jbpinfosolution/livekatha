@@ -35,6 +35,7 @@ const App: React.FC = () =>
       requestTrackingAuthorization: true,
     });
   }, []);
+  
   return(
   <IonApp>
     <IonReactRouter>
@@ -46,6 +47,7 @@ const App: React.FC = () =>
         <Route exact path="/form" component={FormPage} />
         <Route exact path="/">
           <Redirect to="/home" />
+          {/* <FormPage/> */}
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>

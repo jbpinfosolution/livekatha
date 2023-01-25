@@ -5,10 +5,10 @@ const config: CapacitorConfig = {
   appName: 'Livekatha',
   webDir: 'build',
   bundledWebRuntime: false,
-//   server: {
-//   url: "http://192.168.1.11:8100",
-//   cleartext: true
-// }
+  server: {
+  url: "http://192.168.1.11:8100",
+  cleartext: true
+}
 };
 
 export default config;

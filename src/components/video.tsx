@@ -1,4 +1,4 @@
-import { IonItem, IonList, IonLoading, IonText } from "@ionic/react";
+import { IonButton, IonItem, IonList, IonLoading, IonText } from "@ionic/react";
 import Axios from "axios";
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player/youtube";
@@ -10,11 +10,13 @@ import {
 } from "@capacitor/push-notifications";
 import { AdMob } from "@capacitor-community/admob";
 
-
 const Video: React.FC = () => {
   const [videoData, setVideoData] = useState([]);
   const [showLoading, setShowLoading] = useState(false);
- 
+  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageButton, setPageButton] = useState(false);
+
   const removeBanner = async () => {
     await AdMob.removeBanner();
   };
@@ -56,14 +58,19 @@ const Video: React.FC = () => {
 
   useEffect(() => {
     setShowLoading(true);
-
-    Axios.get("https://lazy-tan-penguin-hose.cyclic.app/videos")
+    Axios.get(`https://lazy-tan-penguin-hose.cyclic.app/items?page=${currentPage}`)
       .then((res: any) => {
-        setVideoData(res.data);
+        setVideoData(res.data.items);
+        setTotalPages(res.data.totalPages);
         setShowLoading(false);
+        setPageButton(true);
       })
       .catch((e) => {});
-  }, []);
+  }, [currentPage]);
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
 
   removeBanner();
 
@@ -72,32 +79,48 @@ const Video: React.FC = () => {
       <div>
         <IonList>
           <IonLoading isOpen={showLoading} message={"Please wait..."} />
-          {videoData
-            .slice(0)
-            .reverse()
-            .map((video: any, index) => {
-              const { url, title, description, tags, _id } = video;
-              return (
-                <>
-                  <div key={index}>
-                    <IonItem key={_id}>
-                      <ReactPlayer controls url={url} />
-                    </IonItem>
+          {videoData.map((video: any, index) => {
+            const { url, title, description, tags, _id } = video;
+            return (
+              <>
+                <div key={index}>
+                  <IonItem key={_id}>
+                    <ReactPlayer controls url={url} />
+                  </IonItem>
 
-                    <IonItem key={index}>
-                      <IonText>
-                        <h2>{title}</h2>
-                        <p>{description}</p>
-                        <h6>
-                          <b>{tags}</b>
-                        </h6>
-                      </IonText>
-                    </IonItem>
-                  </div>
-                </>
-              );
-            })}
+                  <IonItem key={index}>
+                    <IonText>
+                      <h2>{title}</h2>
+                      <p>{description}</p>
+                      <h6>
+                        <b>{tags}</b>
+                      </h6>
+                    </IonText>
+                  </IonItem>
+                </div>
+              </>
+            );
+          })}
         </IonList>
+        {pageButton && <div className="pageContainer2">
+          <IonButton
+            size="small"
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </IonButton>
+          <h2 className="h">
+            Page {currentPage} of {totalPages}
+          </h2>
+          <IonButton
+            size="small"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </IonButton>
+        </div>}
       </div>
     </>
   );
