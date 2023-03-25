@@ -88,11 +88,9 @@ const Video: React.FC = () => {
 
                   <IonItem key={index}>
                     <IonText>
-                      <h2>{title}</h2>
-                      <p>{description}</p>
-                      <h6>
-                        <b>{tags}</b>
-                      </h6>
+                      <h4>{title}</h4>
+                      <small>{description}</small>
+                      <hr/>
                     </IonText>
                   </IonItem>
                 </div>

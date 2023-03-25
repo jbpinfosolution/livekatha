@@ -125,7 +125,7 @@ const HomePage: React.FC = () => {
             <b>WELCOME</b>
           </h1>
           <h4 style={{ textAlign: "center" }}>
-            Watch all live katha just one click!!
+            Watch live katha in just a click!!
           </h4>
           <Link to={"/home/video"}>
             <div style={{ display: "flex", justifyContent: "center" }}>
