@@ -37,16 +37,20 @@ const FormPage: React.FC = () => {
     title: "",
     description: "",
     tags: "",
+    thumbnailUrl: "",
   });
-  const url = "https://lazy-tan-penguin-hose.cyclic.app/post";
+  const url = "https://lazy-tan-penguin-hose.cyclic.app/newPost";
 
   const inputEvent = (e: any) => {
     const { value, id } = e.target;
     setData({ ...data, [id]: value });
   };
+
   useEffect(() => {
     setLoading(true);
-    Axios.get(`https://lazy-tan-penguin-hose.cyclic.app/items?page=${currentPage}`)
+    Axios.get(
+      `https://lazy-tan-penguin-hose.cyclic.app/newItems?page=${currentPage}`
+    )
       .then((res) => {
         setVideo(res.data.items);
         setTotalPages(res.data.totalPages);
@@ -59,7 +63,7 @@ const FormPage: React.FC = () => {
     try {
       setDeleteLoading(true);
       const res = await Axios.delete(
-        `https://lazy-tan-penguin-hose.cyclic.app/delete/${id}`
+        `https://lazy-tan-penguin-hose.cyclic.app/newDelete/${id}`
       );
       // console.log(res);
       // console.log(res.data);
@@ -86,6 +90,7 @@ const FormPage: React.FC = () => {
       title: data.title,
       description: data.description,
       tags: data.tags,
+      thumbnailUrl: `https://i.ytimg.com/vi/${data.thumbnailUrl}/hqdefault.jpg`,
     })
       .then((res) => {
         setShowLoading(false);
@@ -177,6 +182,16 @@ const FormPage: React.FC = () => {
                 value={data.tags}
                 onIonChange={inputEvent}
                 placeholder="Enter Your Tags"
+                type="text"
+              ></IonInput>
+            </IonItem>
+            <IonItem>
+              <IonLabel position="floating">Thumbnail</IonLabel>
+              <IonInput
+                id="thumbnailUrl"
+                value={data.thumbnailUrl}
+                onIonChange={inputEvent}
+                placeholder="Enter videoId"
                 type="text"
               ></IonInput>
             </IonItem>

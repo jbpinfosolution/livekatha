@@ -6,6 +6,7 @@ import {
   IonHeader,
   IonIcon,
   IonImg,
+  IonLoading,
   IonModal,
   IonPage,
   IonText,
@@ -19,40 +20,28 @@ import {
   BannerAdPluginEvents,
   BannerAdPosition,
   BannerAdSize,
+  InterstitialAdPluginEvents,
 } from "@capacitor-community/admob";
-
 import "./Home.css";
-
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { informationCircleOutline } from "ionicons/icons";
 import { useIonRouter } from "@ionic/react";
 import { App } from "@capacitor/app";
 
 const styles = {
-  img1: {
-    height: "30px",
-    width: "30px",
-    display: "inline-block",
-    position: "absolute",
-    left: "90px",
-  },
-  img2: {
-    height: "30px",
-    width: "30px",
-    right: " 90px",
-    display: "inline-block",
-    position: "absolute",
-  },
-  title: {
-    marginTop: "6px",
-    textAlign: "center",
+  logo: {
+    width: "60%",
+    justifyContent: "center",
+    display: "flex",
+    marginLeft: "76px",
   },
 };
 
 const HomePage: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const ionRouter = useIonRouter();
+  // const [showLoading, setShowLoading] = useState(false);
 
   document.addEventListener("ionBackButton", (ev: any) => {
     ev.detail.register(-1, () => {
@@ -61,7 +50,6 @@ const HomePage: React.FC = () => {
       }
     });
   });
-
 
   const showBanner = async () => {
     AdMob.addListener(BannerAdPluginEvents.Loaded, () => {});
@@ -75,21 +63,41 @@ const HomePage: React.FC = () => {
     // demo ad unit id ca-app-pub-3940256099942544/6300978111
 
     const options: BannerAdOptions = {
-      adId: "ca-app-pub-3940256099942544/6300978111",
+      adId: "ca-app-pub-7720753730393552/1815817037",
       adSize: BannerAdSize.MEDIUM_RECTANGLE,
       position: BannerAdPosition.BOTTOM_CENTER,
       margin: 0,
-      isTesting: true,
-      
+      // isTesting: true,
     };
     await AdMob.showBanner(options);
   };
 
-  showBanner();
+  const interstitial = async () => {
+    // setShowLoading(true);
+    AdMob.addListener(InterstitialAdPluginEvents.Loaded, (info: any) => {});
+    //ca-app-pub-7720753730393552/2959619496 real ad id
+    // demo ad unit id ca-app-pub-3940256099942544/8691691433
 
-  // const hideBanner = async () => {
-  //   await AdMob.removeBanner();
-  // };
+    const options: BannerAdOptions = {
+      adId: "ca-app-pub-7720753730393552/2959619496",
+      // isTesting: true,
+    };
+    const ad = await AdMob.prepareInterstitial(options);
+    if (ad) {
+      // setShowLoading(false);
+      showInterstitial();
+    } else {
+      // setShowLoading(false);
+    }
+  };
+  const showInterstitial = async () => {
+    await AdMob.showInterstitial();
+  };
+
+  useEffect(() => {
+    interstitial();
+    showBanner();
+  }, []);
 
   const hide = async () => {
     await AdMob.hideBanner();
@@ -104,16 +112,14 @@ const HomePage: React.FC = () => {
     <>
       <IonPage>
         <IonHeader>
-          <IonToolbar color="light">
-            <div style={{ display: "flex" }}>
-              <IonImg src="./images/om.png" style={styles.img1} />
-              <IonTitle style={styles.title}>
-                <b>Livekatha</b>
-              </IonTitle>
-              <IonImg src="./images/om.png" style={styles.img2} />
-            </div>
+          <IonToolbar>
+            <IonImg
+              src="./images/om livekatha.jpg"
+              style={styles.logo}
+            ></IonImg>
           </IonToolbar>
         </IonHeader>
+        {/* <IonLoading isOpen={showLoading} message={"Please wait..."} /> */}
         <IonContent fullscreen>
           <h1 style={{ marginTop: "100px", textAlign: "center" }}>
             <b>WELCOME</b>
@@ -123,13 +129,7 @@ const HomePage: React.FC = () => {
           </h4>
           <Link to={"/home/video"}>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <IonButton
-                color="primary"
-                style={{ margin: 0 }}
-                // onClick={() => {
-                //   hideBanner();
-                // }}
-              >
+              <IonButton color="primary" style={{ margin: 0 }}>
                 watch now
               </IonButton>
             </div>
@@ -228,12 +228,7 @@ const HomePage: React.FC = () => {
         </IonContent>
         <IonFooter style={{ height: "40px" }}>
           <IonToolbar color="light">
-            <IonButton
-              color="dark"
-              fill="clear"
-              // onClick={() => setIsOpen(true)}
-              onClick={popUp}
-            >
+            <IonButton color="dark" fill="clear" onClick={popUp}>
               <IonIcon
                 icon={informationCircleOutline}
                 style={{ marginBottom: "10px" }}

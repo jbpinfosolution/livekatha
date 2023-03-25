@@ -13,7 +13,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { useState } from "react";
-import Video from "../components/video";
+import VideoList from "../components/videoList";
 import "./Home.css";
 import { refreshOutline, informationCircleOutline } from "ionicons/icons";
 const styles = {
@@ -42,11 +42,7 @@ const VideoPage: React.FC = () => {
     <>
       <IonPage>
         <IonHeader>
-          <IonToolbar
-          // color="light"
-          // className="ion-text-center"
-          // style={styles.toolbar}
-          >
+          <IonToolbar>
             <IonImg
               src="./images/om livekatha.jpg"
               style={styles.logo}
@@ -62,7 +58,8 @@ const VideoPage: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <IonContent fullscreen>
-          <Video />
+          {/* <Video /> */}
+          <VideoList />
           <IonModal isOpen={isOpen}>
             <IonHeader>
               <IonToolbar color="medium">

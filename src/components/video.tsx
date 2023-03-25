@@ -37,15 +37,11 @@ const Video: React.FC = () => {
   }, []);
 
   const register = () => {
-    // console.log("Initializing VideoPage");
     PushNotifications.register();
-
     PushNotifications.addListener("registration", (token: Token) => {});
-
     PushNotifications.addListener("registrationError", (error: any) => {
       alert("Error on registration: " + JSON.stringify(error));
     });
-
     PushNotifications.addListener(
       "pushNotificationReceived",
       (notification: PushNotificationSchema) => {}
@@ -58,7 +54,9 @@ const Video: React.FC = () => {
 
   useEffect(() => {
     setShowLoading(true);
-    Axios.get(`https://lazy-tan-penguin-hose.cyclic.app/items?page=${currentPage}`)
+    Axios.get(
+      `https://lazy-tan-penguin-hose.cyclic.app/items?page=${currentPage}`
+    )
       .then((res: any) => {
         setVideoData(res.data.items);
         setTotalPages(res.data.totalPages);
@@ -102,25 +100,27 @@ const Video: React.FC = () => {
             );
           })}
         </IonList>
-        {pageButton && <div className="pageContainer2">
-          <IonButton
-            size="small"
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            Previous
-          </IonButton>
-          <h2 className="h">
-            Page {currentPage} of {totalPages}
-          </h2>
-          <IonButton
-            size="small"
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-          >
-            Next
-          </IonButton>
-        </div>}
+        {pageButton && (
+          <div className="pageContainer2">
+            <IonButton
+              size="small"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </IonButton>
+            <h2 className="h">
+              Page {currentPage} of {totalPages}
+            </h2>
+            <IonButton
+              size="small"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </IonButton>
+          </div>
+        )}
       </div>
     </>
   );

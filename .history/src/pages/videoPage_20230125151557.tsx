@@ -12,139 +12,53 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import {
-  AdMob,
-  AdMobBannerSize,
-  BannerAdOptions,
-  BannerAdPluginEvents,
-  BannerAdPosition,
-  BannerAdSize,
-} from "@capacitor-community/admob";
-
-import "./Home.css";
-
-import { Link } from "react-router-dom";
 import { useState } from "react";
-import { informationCircleOutline } from "ionicons/icons";
-import { useIonRouter } from "@ionic/react";
-import { App } from "@capacitor/app";
-
+import Video from "../components/video";
+import "./Home.css";
+import { refreshOutline, informationCircleOutline } from "ionicons/icons";
 const styles = {
-  img1: {
-    height: "30px",
-    width: "30px",
-    display: "inline-block",
-    position: "absolute",
-    left: "90px",
+  button: {
+    right: "10px",
+    position: " absolute",
+    bottom: "6px",
   },
-  img2: {
-    height: "30px",
-    width: "30px",
-    right: " 90px",
-    display: "inline-block",
-    position: "absolute",
-  },
-  title: {
-    marginTop: "6px",
-    textAlign: "center",
-  },
-  logo:{
+  text: { left: "38px", position: "absolute", top: "12px" },
+  logo: {
     width: "60%",
     justifyContent: "center",
     display: "flex",
     marginLeft: "76px",
-  }
+  },
 };
 
-const HomePage: React.FC = () => {
+const VideoPage: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const ionRouter = useIonRouter();
 
-  document.addEventListener("ionBackButton", (ev: any) => {
-    ev.detail.register(-1, () => {
-      if (!ionRouter.canGoBack()) {
-        App.exitApp();
-      }
-    });
-  });
-
-
-  const showBanner = async () => {
-    AdMob.addListener(BannerAdPluginEvents.Loaded, () => {});
-
-    AdMob.addListener(
-      BannerAdPluginEvents.SizeChanged,
-      (size: AdMobBannerSize) => {}
-    );
-
-    //ca-app-pub-7720753730393552/1815817037 real ad id
-    // demo ad unit id ca-app-pub-3940256099942544/6300978111
-
-    const options: BannerAdOptions = {
-      adId: "ca-app-pub-3940256099942544/6300978111",
-      adSize: BannerAdSize.MEDIUM_RECTANGLE,
-      position: BannerAdPosition.BOTTOM_CENTER,
-      margin: 0,
-      isTesting: true,
-      
-      
-    };
-    await AdMob.showBanner(options);
-  };
-
-  showBanner();
-
-  // const hideBanner = async () => {
-  //   await AdMob.removeBanner();
-  // };
-
-  const hide = async () => {
-    await AdMob.hideBanner();
-  };
-
-  const popUp = () => {
-    setIsOpen(true);
-    hide();
-  };
+  function refreshPage() {
+    window.location.reload();
+  }
 
   return (
     <>
       <IonPage>
         <IonHeader>
-          <IonToolbar >
-            {/* <div style={{ display: "flex" }}>
-              <IonImg src="./images/om.png" style={styles.img1} />
-              <IonTitle style={styles.title}>
-                <b>Livekatha</b>
-              </IonTitle>
-              <IonImg src="./images/om.png" style={styles.img2} />
-            </div> */}
-           <IonImg
+          <IonToolbar>
+            <IonImg
               src="./images/om livekatha.jpg"
               style={styles.logo}
             ></IonImg>
+            <IonButton
+              fill="clear"
+              color="dark"
+              onClick={refreshPage}
+              style={styles.button}
+            >
+              <IonIcon icon={refreshOutline} />
+            </IonButton>
           </IonToolbar>
         </IonHeader>
         <IonContent fullscreen>
-          <h1 style={{ marginTop: "100px", textAlign: "center" }}>
-            <b>WELCOME</b>
-          </h1>
-          <h4 style={{ textAlign: "center" }}>
-            Watch all live katha just one click!!
-          </h4>
-          <Link to={"/home/video"}>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <IonButton
-                color="primary"
-                style={{ margin: 0 }}
-                // onClick={() => {
-                //   hideBanner();
-                // }}
-              >
-                watch now
-              </IonButton>
-            </div>
-          </Link>
+          <Video />
           <IonModal isOpen={isOpen}>
             <IonHeader>
               <IonToolbar color="medium">
@@ -242,19 +156,14 @@ const HomePage: React.FC = () => {
             <IonButton
               color="dark"
               fill="clear"
-              // onClick={() => setIsOpen(true)}
-              onClick={popUp}
+              onClick={() => setIsOpen(true)}
             >
               <IonIcon
                 icon={informationCircleOutline}
                 style={{ marginBottom: "10px" }}
               ></IonIcon>
             </IonButton>
-            <IonText
-              style={{ left: "38px", position: "absolute", top: "12px" }}
-            >
-              Disclaimer and Privacy Policy
-            </IonText>
+            <IonText style={styles.text}>Disclaimer and Privacy Policy</IonText>
           </IonToolbar>
         </IonFooter>
       </IonPage>
@@ -262,4 +171,4 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage;
+export default VideoPage;

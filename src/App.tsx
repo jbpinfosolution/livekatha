@@ -26,6 +26,7 @@ import { useEffect } from "react";
 import { AdMob } from '@capacitor-community/admob';
 import VideoPage from "./pages/videoPage";
 
+
 setupIonicReact();
 
 const App: React.FC = () =>
