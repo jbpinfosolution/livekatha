@@ -39,7 +39,11 @@ const FormPage: React.FC = () => {
     tags: "",
     thumbnailUrl: "",
   });
-  const url = "https://lazy-tan-penguin-hose.cyclic.app/newPost";
+  
+  //const url = "https://lazy-tan-penguin-hose.cyclic.app/post";
+  // eslint-disable-next-line no-template-curly-in-string
+  const url = `${window.name}newPost`;
+  //const url = "${url}/newPost";
 
   const inputEvent = (e: any) => {
     const { value, id } = e.target;
@@ -48,9 +52,7 @@ const FormPage: React.FC = () => {
 
   useEffect(() => {
     setLoading(true);
-    Axios.get(
-      `https://lazy-tan-penguin-hose.cyclic.app/newItems?page=${currentPage}`
-    )
+    Axios.get(`${window.name}newItems?page=${currentPage}`)
       .then((res) => {
         setVideo(res.data.items);
         setTotalPages(res.data.totalPages);
@@ -63,7 +65,7 @@ const FormPage: React.FC = () => {
     try {
       setDeleteLoading(true);
       const res = await Axios.delete(
-        `https://lazy-tan-penguin-hose.cyclic.app/newDelete/${id}`
+        `${window.name}newDelete/${id}`
       );
       // console.log(res);
       // console.log(res.data);
@@ -85,12 +87,14 @@ const FormPage: React.FC = () => {
   const submit = (e: any) => {
     setShowLoading(true);
     e.preventDefault();
+    const myArray = data.url.split("v=");
+    const thumbimg = myArray[1] ? myArray[1] : "";
     Axios.post(url, {
       url: data.url,
       title: data.title,
-      description: data.description,
-      tags: data.tags,
-      thumbnailUrl: `https://i.ytimg.com/vi/${data.thumbnailUrl}/hqdefault.jpg`,
+      description: data.title,
+      tags: "#dn",
+      thumbnailUrl: `https://i.ytimg.com/vi/${thumbimg}/hqdefault.jpg`,
     })
       .then((res) => {
         setShowLoading(false);
@@ -166,7 +170,7 @@ const FormPage: React.FC = () => {
                 type="text"
               ></IonInput>
             </IonItem>
-            <IonItem>
+            {/* <IonItem>
               <IonLabel position="floating">Description</IonLabel>
               <IonTextarea
                 id="description"
@@ -184,17 +188,7 @@ const FormPage: React.FC = () => {
                 placeholder="Enter Your Tags"
                 type="text"
               ></IonInput>
-            </IonItem>
-            <IonItem>
-              <IonLabel position="floating">Thumbnail</IonLabel>
-              <IonInput
-                id="thumbnailUrl"
-                value={data.thumbnailUrl}
-                onIonChange={inputEvent}
-                placeholder="Enter videoId"
-                type="text"
-              ></IonInput>
-            </IonItem>
+            </IonItem> */}
             <IonButton type="submit">Upload</IonButton>
           </IonList>
         </form>
