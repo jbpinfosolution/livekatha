@@ -25,7 +25,9 @@ import FormPage from "./pages/FormPage";
 import { useEffect } from "react";
 import { AdMob } from '@capacitor-community/admob';
 import VideoPage from "./pages/videoPage";
-
+//var globalurl = "xcv";
+// eslint-disable-next-line no-restricted-globals
+window.name = (location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '0.0.0.0')? 'http://localhost:3000/' :'https://lazy-tan-penguin-hose.cyclic.app/';
 
 setupIonicReact();
 

@@ -54,9 +54,7 @@ const Video: React.FC = () => {
 
   useEffect(() => {
     setShowLoading(true);
-    Axios.get(
-      `https://lazy-tan-penguin-hose.cyclic.app/items?page=${currentPage}`
-    )
+    Axios.get(`{window.name}newItems?page=${currentPage}`)
       .then((res: any) => {
         setVideoData(res.data.items);
         setTotalPages(res.data.totalPages);
@@ -78,7 +76,7 @@ const Video: React.FC = () => {
         <IonList>
           <IonLoading isOpen={showLoading} message={"Please wait..."} />
           {videoData.map((video: any, index) => {
-            const { url, title, description, tags, _id } = video;
+            const { url, title, description, _id } = video;
             return (
               <>
                 <div key={index}>

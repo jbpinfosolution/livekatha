@@ -65,7 +65,8 @@ const VideoList: React.FC = () => {
 
   useEffect(() => {
     setShowLoading(true);
-    Axios.get("https://lazy-tan-penguin-hose.cyclic.app/video")
+    // eslint-disable-next-line no-template-curly-in-string
+    Axios.get(`${window.name}video`)
       .then((res: any) => {
         setVideoData(res.data);
         setShowLoading(false);
@@ -129,11 +130,10 @@ const VideoList: React.FC = () => {
                 >
                   <img src={thumbnailUrl} alt={title} />
                   <IonText className="ion-text">
-                    <h6>
+                    <h4>
                       <b>{title}</b>
-                    </h6>
-                    <p>{description}</p>
-                    <p>{tags}</p>
+                    </h4>
+                  
                   </IonText>
                 </div>
               </>
